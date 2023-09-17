@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:kooha/screens/login_screen/login_screen.dart';
 import 'package:kooha/screens/nav_screens/nav_screens.dart';
 import 'package:kooha/screens/wallet_screen/wallet_screen.dart';
+import 'package:kooha/screens/wallet_screen/wallet_transactions.dart';
 
 class AppRoutes {
   static Route onGenerateRoute(RouteSettings settings) {
     return switch (settings.name) {
       LoginScreen.loginScreen => screenOf(screenName: const LoginScreen()),
       NavScreens.navScreens => screenOf(screenName: const NavScreens()),
-      WalletScreen.walletScreen => screenOf(screenName: WalletScreen()),
+      WalletScreen.walletScreen => screenOf(screenName: const WalletScreen()),
+      WalletTransactionsPage.walletTransactionsPage =>
+        screenOf(screenName: WalletTransactionsPage()),
       _ => screenOf(screenName: Container())
     };
   }

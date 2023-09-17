@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kooha/providers/login_provider.dart';
-import 'package:kooha/screens/nav_screens/nav_screens.dart';
-import 'package:kooha/utils/color.dart';
-import 'package:kooha/utils/images.dart';
+import 'package:kooha/utils/color.dart'; 
 import 'package:kooha/widget/back_button.dart';
 import 'package:kooha/widget/custom_elevated_button.dart';
 import 'package:kooha/widget/iconss.dart';

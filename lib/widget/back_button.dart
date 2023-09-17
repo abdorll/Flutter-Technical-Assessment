@@ -11,11 +11,9 @@ class ExitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: shoulExit == true
-          ? () {
-              Navigator.pop(context);
-            }
-          : null,
+      onTap: () {
+        shoulExit == true ? Navigator.pop(context) : () {};
+      },
       child: CircleAvatar(
         radius: 23,
         backgroundColor: AppColors.grey,

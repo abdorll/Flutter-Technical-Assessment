@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:kooha/widget/iconss.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kooha/utils/color.dart';

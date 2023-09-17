@@ -19,7 +19,7 @@ class _NavScreensState extends State<NavScreens> {
   int currentIndex = 1;
   List<Widget> realNavsScreens = [
     const OtherNavScreens(screenName: "Home"),
-    WalletScreen(),
+    const WalletScreen(),
     const OtherNavScreens(screenName: "Inbox"),
     const OtherNavScreens(screenName: "Profile"),
   ];

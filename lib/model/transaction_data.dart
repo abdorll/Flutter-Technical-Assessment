@@ -39,7 +39,7 @@ class TransactionsData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['uuid'] = uuid;
     data['reference'] = reference;
     data['amount'] = amount;
@@ -105,7 +105,7 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['uuid'] = uuid;
     data['fullName'] = fullName;
     data['userName'] = userName;

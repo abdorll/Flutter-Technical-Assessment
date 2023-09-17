@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kooha/model/transaction_data.dart';
-import 'package:kooha/model/wallet_model.dart';
 import 'package:kooha/providers/transactions_provider.dart';
 import 'package:kooha/providers/wallet_provider.dart';
-import 'package:kooha/utils/application_state.dart';
+import 'package:kooha/screens/wallet_screen/wallet_transactions.dart';
 import 'package:kooha/utils/color.dart';
 import 'package:kooha/utils/functions.dart';
+import 'package:kooha/utils/images.dart';
 import 'package:kooha/widget/iconss.dart';
 import 'package:kooha/widget/spacing.dart';
 import 'package:kooha/widget/texts.dart';
@@ -15,7 +15,7 @@ final WalletProvider walletProvider = Get.put(WalletProvider());
 
 class WalletScreen extends StatefulWidget {
   static const String walletScreen = "walletScreen";
-  WalletScreen({super.key});
+  const WalletScreen({super.key});
 
   @override
   State<WalletScreen> createState() => _WalletScreenState();
@@ -27,10 +27,9 @@ class _WalletScreenState extends State<WalletScreen> {
       Get.put(TransactionListProvider());
   @override
   void initState() {
+    transactionListProvider.getTransactionsData();
     if (walletProvider.userwallet.value == null) {
       walletProvider.getwallet();
-    } else if (transactionListProvider.transactionList == []) {
-      transactionListProvider.getTransactionsData();
     }
     super.initState();
   }
@@ -108,27 +107,53 @@ class _WalletScreenState extends State<WalletScreen> {
                               AppColors.deepGrey)
                         ],
                       ),
-                      TextOf("See all", 16, AppColors.secondaryColor,
-                          FontWeight.w700),
+                      transactionListProvider.transactionList == []
+                          ? const SizedBox.shrink()
+                          : InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context,
+                                    WalletTransactionsPage
+                                        .walletTransactionsPage);
+                              },
+                              child: TextOf("See all", 16,
+                                  AppColors.secondaryColor, FontWeight.w700),
+                            ),
                     ],
                   ),
                 ),
-                YMargin(10),
+                const YMargin(10),
                 Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: ListView.separated(
-                      physics: BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) => Divider(
-                            color: AppColors.grey,
-                          ),
-                      itemCount: transactionListProvider.transactionList.length,
-                      itemBuilder: (context, index) {
-                        TransactionsData transaction =
-                            transactionListProvider.transactionList[index];
-                        return transactionInfo(transaction: transaction);
-                      }),
-                ))
+                    child: transactionListProvider.transactionList == []
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                ImageOf.emptyTransaction,
+                                height: 150,
+                              ),
+                              const YMargin(20),
+                              TextOf("No withdrawal\nhistory recorded yet", 14,
+                                  AppColors.deepGrey, FontWeight.w700)
+                            ],
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: ListView.separated(
+                                physics: const BouncingScrollPhysics(),
+                                separatorBuilder: (context, index) => Divider(
+                                      color: AppColors.grey,
+                                    ),
+                                itemCount: transactionListProvider
+                                    .transactionList.length,
+                                itemBuilder: (context, index) {
+                                  TransactionsData transaction =
+                                      transactionListProvider
+                                          .transactionList[index];
+                                  return transactionInfo(
+                                      transaction: transaction);
+                                }),
+                          ))
               ],
             ),
           );
@@ -162,7 +187,7 @@ transactionInfo({required TransactionsData transaction}) {
                             AppColors.secondaryColor)
                         : IconOf(
                             Icons.south_west_rounded, 20, AppColors.deepGrey)),
-                XMargin(10),
+                const XMargin(10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,7 +199,7 @@ transactionInfo({required TransactionsData transaction}) {
                         14,
                         AppColors.white,
                         FontWeight.w700),
-                    YMargin(5),
+                    const YMargin(5),
                     TextOf(
                         "Processed", 12, AppColors.deepGrey, FontWeight.w500),
                   ],
@@ -187,7 +212,7 @@ transactionInfo({required TransactionsData transaction}) {
               children: [
                 TextOf("₦ ${transaction.amount!.toString()}", 14,
                     AppColors.white, FontWeight.w700),
-                YMargin(5),
+                const YMargin(5),
                 TextOf(
                     AppFunction.dateFormatter(
                         dateString: transaction.createdAt!),

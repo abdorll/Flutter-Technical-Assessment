@@ -15,5 +15,6 @@ class ImageOf {
   static String messagesIcon = image('messages');
   static String profile = image('profile');
   static String wallet = image('wallet');
+  static String emptyTransaction = image('empty_transaction');
   static String walletNeutral = image('wallet_neutral');
 }
