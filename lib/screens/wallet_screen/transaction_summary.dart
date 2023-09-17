@@ -52,162 +52,200 @@ class TransactionSummaryScreen extends StatelessWidget {
               ),
             ),
             const YMargin(15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                      radius: 30,
-                      backgroundColor: isDeposit()
-                          ? const Color(0xff553902)
-                          : AppColors.grey,
-                      child: isDeposit()
-                          ? IconOf(Icons.north_east_rounded, 30,
-                              AppColors.secondaryColor)
-                          : IconOf(Icons.south_west_rounded, 30,
-                              AppColors.deepGrey)),
-                  const YMargin(5),
-                  TextOf(
-                      "${Constants.CURRENCY}${transactionData!.amount!.toString()}",
-                      30,
-                      AppColors.white,
-                      FontWeight.w700),
-                  const YMargin(10),
-                  TextOf(
-                      AppFunction.dateFormatter(
-                          dateString: transactionData!.createdAt!),
-                      12,
-                      AppColors.deepGrey,
-                      FontWeight.w700),
-                  const YMargin(20),
-                  Divider(
-                    color: AppColors.grey,
-                  ),
-                  const YMargin(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
                     children: [
-                      TextOf(!isDeposit() ? "Recipient" : "Source", 14,
-                          AppColors.deepGrey, FontWeight.w500),
-                      !isDeposit()
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                TextOf("Access Bank Plc", 16, AppColors.white,
-                                    FontWeight.w700),
-                                TextOf(
-                                    transactionData!.user!.fullName!
-                                        .toUpperCase(),
-                                    12,
-                                    AppColors.deepGrey,
-                                    FontWeight.w500)
-                              ],
-                            )
-                          : TextOf(transactionData!.source!.toUpperCase(), 16,
-                              AppColors.white, FontWeight.w700)
-                    ],
-                  ),
-                  const YMargin(20),
-                  Divider(
-                    color: AppColors.grey,
-                  ),
-                  const YMargin(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextOf("Status", 14, AppColors.deepGrey, FontWeight.w500),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            color:
-                                !isPending() ? AppColors.green : AppColors.grey,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: TextOf(
-                            isPending() ? "Processing" : "Processed",
-                            12,
-                            !isPending()
-                                ? AppColors.white
-                                : AppColors.secondaryColor,
-                            FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  isDeposit()
-                      ? Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const YMargin(20),
-                            Divider(
-                              color: AppColors.grey,
-                            ),
-                            const YMargin(20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextOf("Fee", 14, AppColors.deepGrey,
-                                    FontWeight.w500),
-                                TextOf(
-                                    "${Constants.CURRENCY} ${transactionData!.amount!.toString()}",
-                                    14,
-                                    AppColors.white,
-                                    FontWeight.w700),
-                              ],
-                            )
-                          ],
-                        )
-                      : const SizedBox.shrink(),
-                  const YMargin(20),
-                  Divider(
-                    color: AppColors.grey,
-                  ),
-                  const YMargin(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                      CircleAvatar(
+                          radius: 30,
+                          backgroundColor: isDeposit()
+                              ? const Color(0xff553902)
+                              : AppColors.grey,
+                          child: isDeposit()
+                              ? IconOf(Icons.north_east_rounded, 30,
+                                  AppColors.secondaryColor)
+                              : IconOf(Icons.south_west_rounded, 30,
+                                  AppColors.deepGrey)),
+                      const YMargin(5),
+                      TextOf(
+                          "${Constants.CURRENCY}${transactionData!.amount!.toString()}",
+                          30,
+                          AppColors.white,
+                          FontWeight.w700),
+                      const YMargin(10),
+                      TextOf(
+                          AppFunction.dateFormatter(
+                              dateString: transactionData!.createdAt!),
+                          12,
+                          AppColors.deepGrey,
+                          FontWeight.w700),
+                      const YMargin(20),
+                      Divider(
+                        color: AppColors.grey,
+                      ),
+                      const YMargin(20),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextOf("Transaction ID", 14, AppColors.deepGrey,
-                              FontWeight.w500),
-                          const XMargin(5),
-                          IconOf(Icons.info_outline, 10, AppColors.deepGrey)
+                          TextOf(!isDeposit() ? "Recipient" : "Source", 14,
+                              AppColors.deepGrey, FontWeight.w500),
+                          !isDeposit()
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    TextOf("Access Bank Plc", 16,
+                                        AppColors.white, FontWeight.w700),
+                                    TextOf(
+                                        transactionData!.user!.fullName!
+                                            .toUpperCase(),
+                                        12,
+                                        AppColors.deepGrey,
+                                        FontWeight.w500)
+                                  ],
+                                )
+                              : TextOf(transactionData!.source!.toUpperCase(),
+                                  16, AppColors.white, FontWeight.w700)
                         ],
                       ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        onTap: () {
-                          Clipboard.setData(
-                                  ClipboardData(text: transactionData!.uuid!))
-                              .then((value) => Alerts.showAlert(
-                                  text: "Copied to clipboard",
-                                  alertType: AlertType.SUCCESS));
-                        },
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              ImageOf.copy,
-                              height: 15,
-                            ),
-                            SizedBox(
-                              width: 100,
-                              child: TextOf(
-                                transactionData!.uuid!,
-                                14,
-                                AppColors.white,
-                                FontWeight.w500,
-                                align: TextAlign.right,
-                                textOverflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
+                      const YMargin(20),
+                      Divider(
+                        color: AppColors.grey,
                       ),
+                      const YMargin(20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextOf("Status", 14, AppColors.deepGrey,
+                              FontWeight.w500),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                                color: !isPending()
+                                    ? AppColors.green
+                                    : AppColors.grey,
+                                borderRadius: BorderRadius.circular(50)),
+                            child: TextOf(
+                                isPending() ? "Processing" : "Processed",
+                                12,
+                                !isPending()
+                                    ? AppColors.white
+                                    : AppColors.secondaryColor,
+                                FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      isDeposit()
+                          ? Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const YMargin(20),
+                                Divider(
+                                  color: AppColors.grey,
+                                ),
+                                const YMargin(20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TextOf("Fee", 14, AppColors.deepGrey,
+                                        FontWeight.w500),
+                                    TextOf(
+                                        "${Constants.CURRENCY} ${transactionData!.amount!.toString()}",
+                                        14,
+                                        AppColors.white,
+                                        FontWeight.w700),
+                                  ],
+                                )
+                              ],
+                            )
+                          : const SizedBox.shrink(),
+                      const YMargin(20),
+                      Divider(
+                        color: AppColors.grey,
+                      ),
+                      const YMargin(20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              TextOf("Transaction ID", 14, AppColors.deepGrey,
+                                  FontWeight.w500),
+                              const XMargin(5),
+                              IconOf(Icons.info_outline, 10, AppColors.deepGrey)
+                            ],
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            onTap: () {
+                              Clipboard.setData(ClipboardData(
+                                      text: transactionData!.uuid!))
+                                  .then((value) => Alerts.showAlert(
+                                      text: "Copied to clipboard",
+                                      alertType: AlertType.SUCCESS));
+                            },
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  ImageOf.copy,
+                                  height: 15,
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: TextOf(
+                                    transactionData!.uuid!,
+                                    14,
+                                    AppColors.white,
+                                    FontWeight.w500,
+                                    align: TextAlign.right,
+                                    textOverflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      YMargin(MediaQuery.of(context).size.height * 0.15),
+                      isPending() == false
+                          ? ElevatedButton(
+                              onPressed: () {},
+                              style: Theme.of(context)
+                                  .elevatedButtonTheme
+                                  .style!
+                                  .copyWith(
+                                      shape: MaterialStatePropertyAll<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            width: 2,
+                                            color: AppColors.primaryColor),
+                                        borderRadius: BorderRadius.circular(
+                                          100,
+                                        ),
+                                      )),
+                                      backgroundColor:
+                                          const MaterialStatePropertyAll<Color>(
+                                              Colors.transparent),
+                                      fixedSize: MaterialStatePropertyAll<Size>(
+                                          Size(
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.8,
+                                              60))),
+                              child: TextOf("Report this transaction", 18,
+                                  AppColors.primaryColor, FontWeight.w700),
+                            )
+                          : const SizedBox.shrink(),
+                      const YMargin(30),
                     ],
                   ),
-                  YMargin(MediaQuery.of(context).size.height * 0.1),
-
-                  //ElevatedButton(onPressed: (){}, child: TextOf("text", size, color, weight))
-                ],
+                ),
               ),
             ),
           ],
@@ -215,4 +253,8 @@ class TransactionSummaryScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget loadBottomSheet() {
+  return Container();
 }
