@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [BotToastNavigatorObserver()],
       themeMode: ThemeMode.dark,
       onGenerateRoute: AppRoutes.onGenerateRoute,
-      initialRoute: LoginScreen.loginScreen,
-      //initialRoute: NavScreens.navScreens,
+      //initialRoute: LoginScreen.loginScreen,
+      initialRoute: NavScreens.navScreens,
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kooha/model/transaction_data.dart';
 import 'package:kooha/model/wallet_model.dart';
 import 'package:kooha/providers/transactions_provider.dart';
 import 'package:kooha/providers/wallet_provider.dart';
 import 'package:kooha/utils/application_state.dart';
 import 'package:kooha/utils/color.dart';
+import 'package:kooha/widget/iconss.dart';
 import 'package:kooha/widget/spacing.dart';
 import 'package:kooha/widget/texts.dart';
 
@@ -26,7 +28,7 @@ class _WalletScreenState extends State<WalletScreen> {
   void initState() {
     if (walletProvider.userwallet.value == null) {
       walletProvider.getwallet();
-    } else if (transactionListProvider.transactionList.isEmpty) {
+    } else if (transactionListProvider.transactionList == []) {
       transactionListProvider.getTransactionsData();
     }
     super.initState();
@@ -63,7 +65,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       const YMargin(10),
                       walletProvider.userwallet.value == null
                           ? TextOf(
-                              "₦****.00", 32, AppColors.white, FontWeight.w700)
+                              "₦ 0.00", 32, AppColors.white, FontWeight.w700)
                           : TextOf(
                               "₦ ${walletProvider.userwallet.value!.balance!.toDouble().toString()}",
                               32,
@@ -90,12 +92,37 @@ class _WalletScreenState extends State<WalletScreen> {
                 Divider(
                   color: AppColors.deepGrey,
                 ),
-                YMargin(20),
-                // Expanded(
-                //     child: ListView.builder(
-                //         itemCount:
-                //             transactionListProvider.transactionList.length,
-                //         itemBuilder: (context, index) {}))
+                const YMargin(20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          TextOf("Transactions", 14, AppColors.deepGrey,
+                              FontWeight.w500),
+                          const XMargin(2),
+                          IconOf(Icons.arrow_downward_outlined, 15,
+                              AppColors.deepGrey)
+                        ],
+                      ),
+                      TextOf("See all", 16, AppColors.secondaryColor,
+                          FontWeight.w700),
+                    ],
+                  ),
+                ),
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: ListView.builder(
+                      itemCount: transactionListProvider.transactionList.length,
+                      itemBuilder: (context, index) {
+                        TransactionsData transaction =
+                            transactionListProvider.transactionList[index];
+                        return transactionInfo(transaction: transaction);
+                      }),
+                ))
               ],
             ),
           );
@@ -103,4 +130,26 @@ class _WalletScreenState extends State<WalletScreen> {
       ),
     );
   }
+}
+
+transactionInfo({required TransactionsData transaction}) {
+  bool isDeposit() {
+    return transaction.type!.toLowerCase() == "deposit";
+  }
+
+  return Column(
+    children: [
+      Row(
+        children: [
+          CircleAvatar(
+              backgroundColor:
+                  isDeposit() ? const Color(0xff553902) : AppColors.grey,
+              child: isDeposit()
+                  ? IconOf(
+                      Icons.north_east_rounded, 20, AppColors.secondaryColor)
+                  : IconOf(Icons.south_west_rounded, 20, AppColors.deepGrey))
+        ],
+      ),
+    ],
+  );
 }
