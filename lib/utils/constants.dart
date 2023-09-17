@@ -8,6 +8,7 @@ class Constants {
   static String BASE_URL = "https://dev-api.kooha.com/v1/";
   static String TOKEN_KEY = "token";
   static String CACHED_EMAIL = "";
+  static String CURRENCY = "₦";
   static String CACHED_PASSWORD = "";
   static String CACHED_EMAIL_KEY = "cached_email_key";
   static String CACHED_PASSWORD_KEY = "cached_password_key";

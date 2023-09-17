@@ -17,7 +17,7 @@ class AppColors {
   static Color deepGrey = const Color(0xff666666);
   static Color red = const Color(0xffFF3E3E);
   static Color pink = const Color(0xffF3CEB1);
-  static Color green = const Color(0xff38D600);
+  static Color green = const Color(0xff219653);
   static Color fadedBlue = const Color(0xffF2F9FF);
   static Color liteBlue = primaryColor.withOpacity(0.2);
   static Color brown = const Color(0xffD68D00);

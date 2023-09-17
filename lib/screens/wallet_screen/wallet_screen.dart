@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:kooha/model/transaction_data.dart';
 import 'package:kooha/providers/transactions_provider.dart';
 import 'package:kooha/providers/wallet_provider.dart';
+import 'package:kooha/screens/wallet_screen/transaction_summary.dart';
 import 'package:kooha/screens/wallet_screen/wallet_transactions.dart';
 import 'package:kooha/utils/color.dart';
+import 'package:kooha/utils/constants.dart';
 import 'package:kooha/utils/functions.dart';
 import 'package:kooha/utils/images.dart';
 import 'package:kooha/widget/iconss.dart';
@@ -150,7 +152,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                   TransactionsData transaction =
                                       transactionListProvider
                                           .transactionList[index];
-                                  return transactionInfo(
+                                  return transactionInfo(context,
                                       transaction: transaction);
                                 }),
                           ))
@@ -163,7 +165,7 @@ class _WalletScreenState extends State<WalletScreen> {
   }
 }
 
-transactionInfo({required TransactionsData transaction}) {
+transactionInfo(BuildContext context, {required TransactionsData transaction}) {
   bool isDeposit() {
     return transaction.type!.toLowerCase() == "deposit";
   }
@@ -172,56 +174,65 @@ transactionInfo({required TransactionsData transaction}) {
     padding: const EdgeInsets.symmetric(vertical: 5),
     child: Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                    radius: 23,
-                    backgroundColor:
-                        isDeposit() ? const Color(0xff553902) : AppColors.grey,
-                    child: isDeposit()
-                        ? IconOf(Icons.north_east_rounded, 20,
-                            AppColors.secondaryColor)
-                        : IconOf(
-                            Icons.south_west_rounded, 20, AppColors.deepGrey)),
-                const XMargin(10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextOf(
-                        isDeposit() == true
-                            ? "Transfer to Bank"
-                            : "Received from Escrow",
-                        14,
-                        AppColors.white,
-                        FontWeight.w700),
-                    const YMargin(5),
-                    TextOf(
-                        "Processed", 12, AppColors.deepGrey, FontWeight.w500),
-                  ],
-                )
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextOf("₦ ${transaction.amount!.toString()}", 14,
-                    AppColors.white, FontWeight.w700),
-                const YMargin(5),
-                TextOf(
-                    AppFunction.dateFormatter(
-                        dateString: transaction.createdAt!),
-                    12,
-                    AppColors.deepGrey,
-                    FontWeight.w500),
-              ],
-            )
-          ],
+        InkWell(
+          splashColor: Colors.transparent,
+          onTap: () {
+            Navigator.pushNamed(
+                context, TransactionSummaryScreen.transactionSummaryScreen,
+                arguments: transaction);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                      radius: 23,
+                      backgroundColor: isDeposit()
+                          ? const Color(0xff553902)
+                          : AppColors.grey,
+                      child: isDeposit()
+                          ? IconOf(Icons.north_east_rounded, 20,
+                              AppColors.secondaryColor)
+                          : IconOf(Icons.south_west_rounded, 20,
+                              AppColors.deepGrey)),
+                  const XMargin(10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextOf(
+                          isDeposit() == true
+                              ? "Transfer to Bank"
+                              : "Received from Escrow",
+                          14,
+                          AppColors.white,
+                          FontWeight.w700),
+                      const YMargin(5),
+                      TextOf(
+                          "Processed", 12, AppColors.deepGrey, FontWeight.w500),
+                    ],
+                  )
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextOf("${Constants.CURRENCY} ${transaction.amount!.toString()}", 14,
+                      AppColors.white, FontWeight.w700),
+                  const YMargin(5),
+                  TextOf(
+                      AppFunction.dateFormatter(
+                          dateString: transaction.createdAt!),
+                      12,
+                      AppColors.deepGrey,
+                      FontWeight.w500),
+                ],
+              )
+            ],
+          ),
         ),
       ],
     ),

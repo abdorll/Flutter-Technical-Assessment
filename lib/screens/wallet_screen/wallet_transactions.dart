@@ -126,7 +126,7 @@ class _WalletTransactionsPageState extends State<WalletTransactionsPage> {
                           : Icons.south_west_rounded,
                       10,
                       AppColors.grey),
-                  XMargin(3),
+                  const XMargin(3),
                   TextOf(
                       text,
                       14,
@@ -148,7 +148,7 @@ class _WalletTransactionsPageState extends State<WalletTransactionsPage> {
           itemCount: data.length,
           itemBuilder: (context, index) {
             TransactionsData transaction = data[index];
-            return transactionInfo(transaction: transaction);
+            return transactionInfo(context,transaction: transaction);
           }),
     );
   }
