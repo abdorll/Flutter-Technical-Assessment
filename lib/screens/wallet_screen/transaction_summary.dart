@@ -213,7 +213,9 @@ class TransactionSummaryScreen extends StatelessWidget {
                       YMargin(MediaQuery.of(context).size.height * 0.15),
                       isPending() == false
                           ? ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                loadBottomSheet(context);
+                              },
                               style: Theme.of(context)
                                   .elevatedButtonTheme
                                   .style!
@@ -255,6 +257,85 @@ class TransactionSummaryScreen extends StatelessWidget {
   }
 }
 
-Widget loadBottomSheet() {
-  return Container();
+loadBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom * 1),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  color: AppColors.scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.circular(20)),
+              width: double.infinity,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const YMargin(15),
+                    Container(
+                      width: 45,
+                      height: 6,
+                      decoration: BoxDecoration(
+                          color: AppColors.grey,
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                    const YMargin(5),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ExitButton(
+                          shoulExit: true,
+                          iconName: "assets/images/close.png",
+                        )
+                      ],
+                    ),
+                    Image.asset(
+                      ImageOf.notepad,
+                      height: 30,
+                    ),
+                    const YMargin(20),
+                    TextOf(
+                        "Leave a remark", 16, AppColors.white, FontWeight.w700),
+                    const YMargin(7),
+                    TextOf(
+                        "Your feedback helps us improve our services and resolve any issues you may have encountered.",
+                        14,
+                        AppColors.deepGrey,
+                        FontWeight.w700),
+                    const YMargin(45),
+                    TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(8,
+                            maxLengthEnforcement:
+                                MaxLengthEnforcement.enforced), // for mobile
+                      ],
+                      decoration: InputDecoration(
+                        hintText: "Deskripsi",
+                        counterStyle:
+                            TextStyle(fontSize: 10, color: AppColors.white),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(width: 1, color: AppColors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                                width: 1, color: AppColors.secondaryColor)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(width: 1, color: AppColors.white)),
+                      ),
+                      maxLength: 8,
+                    ),
+                    YMargin(20)
+                  ],
+                ),
+              ),
+            ),
+          ));
 }
