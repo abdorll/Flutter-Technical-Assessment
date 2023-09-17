@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:kooha/routes/app_routes.dart';
+import 'package:kooha/screens/login_screen/login_screen.dart';
 import 'package:kooha/screens/nav_screens/nav_screens.dart';
 import 'package:kooha/screens/wallet_screen/wallet_transactions.dart';
 import 'package:kooha/theme/app_theme.dart';
@@ -42,9 +43,9 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [BotToastNavigatorObserver()],
       themeMode: ThemeMode.dark,
       onGenerateRoute: AppRoutes.onGenerateRoute,
-      //initialRoute: LoginScreen.loginScreen,
+      initialRoute: LoginScreen.loginScreen,
       // initialRoute: WalletTransactionsPage.walletTransactionsPage,
-      initialRoute: NavScreens.navScreens,
+      //initialRoute: NavScreens.navScreens,
     );
   }
 }
