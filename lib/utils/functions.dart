@@ -8,7 +8,7 @@ class AppFunction {
     }
   }
 
-  static String dateTimeFunction({required String dateString}) {
+  static String dateFormatter({required String dateString}) {
     DateTime dateTime = DateTime.parse(dateString);
     final DateTime dtToday = DateTime.now();
     final DateTime dtYesterday =

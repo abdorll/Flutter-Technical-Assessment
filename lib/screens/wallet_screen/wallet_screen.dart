@@ -6,6 +6,7 @@ import 'package:kooha/providers/transactions_provider.dart';
 import 'package:kooha/providers/wallet_provider.dart';
 import 'package:kooha/utils/application_state.dart';
 import 'package:kooha/utils/color.dart';
+import 'package:kooha/utils/functions.dart';
 import 'package:kooha/widget/iconss.dart';
 import 'package:kooha/widget/spacing.dart';
 import 'package:kooha/widget/texts.dart';
@@ -90,7 +91,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   ),
                 ),
                 Divider(
-                  color: AppColors.deepGrey,
+                  color: AppColors.grey,
                 ),
                 const YMargin(20),
                 Padding(
@@ -112,10 +113,15 @@ class _WalletScreenState extends State<WalletScreen> {
                     ],
                   ),
                 ),
+                YMargin(10),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: ListView.builder(
+                  child: ListView.separated(
+                      physics: BouncingScrollPhysics(),
+                      separatorBuilder: (context, index) => Divider(
+                            color: AppColors.grey,
+                          ),
                       itemCount: transactionListProvider.transactionList.length,
                       itemBuilder: (context, index) {
                         TransactionsData transaction =
@@ -137,19 +143,62 @@ transactionInfo({required TransactionsData transaction}) {
     return transaction.type!.toLowerCase() == "deposit";
   }
 
-  return Column(
-    children: [
-      Row(
-        children: [
-          CircleAvatar(
-              backgroundColor:
-                  isDeposit() ? const Color(0xff553902) : AppColors.grey,
-              child: isDeposit()
-                  ? IconOf(
-                      Icons.north_east_rounded, 20, AppColors.secondaryColor)
-                  : IconOf(Icons.south_west_rounded, 20, AppColors.deepGrey))
-        ],
-      ),
-    ],
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 5),
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                    radius: 23,
+                    backgroundColor:
+                        isDeposit() ? const Color(0xff553902) : AppColors.grey,
+                    child: isDeposit()
+                        ? IconOf(Icons.north_east_rounded, 20,
+                            AppColors.secondaryColor)
+                        : IconOf(
+                            Icons.south_west_rounded, 20, AppColors.deepGrey)),
+                XMargin(10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextOf(
+                        isDeposit() == true
+                            ? "Transfer to Bank"
+                            : "Received from Escrow",
+                        14,
+                        AppColors.white,
+                        FontWeight.w700),
+                    YMargin(5),
+                    TextOf(
+                        "Processed", 12, AppColors.deepGrey, FontWeight.w500),
+                  ],
+                )
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextOf("₦ ${transaction.amount!.toString()}", 14,
+                    AppColors.white, FontWeight.w700),
+                YMargin(5),
+                TextOf(
+                    AppFunction.dateFormatter(
+                        dateString: transaction.createdAt!),
+                    12,
+                    AppColors.deepGrey,
+                    FontWeight.w500),
+              ],
+            )
+          ],
+        ),
+      ],
+    ),
   );
 }
