@@ -9,58 +9,58 @@
 <table>
   <tr>
     <td align="center">
-      <img src="assets/images/screenshots/001.png" alt="Image 001">
+      <img src="assets/images/screenshots/001.jpg" alt="Image 001">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/002.png" alt="Image 002">
+      <img src="assets/images/screenshots/002.jpg" alt="Image 002">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/003.png" alt="Image 003">
+      <img src="assets/images/screenshots/003.jpg" alt="Image 003">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/004.png" alt="Image 004">
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="assets/images/screenshots/005.png" alt="Image 005">
-    </td>
-    <td align="center">
-      <img src="assets/images/screenshots/006.png" alt="Image 006">
-    </td>
-    <td align="center">
-      <img src="assets/images/screenshots/007.png" alt="Image 007">
-    </td>
-    <td align="center">
-      <img src="assets/images/screenshots/008.png" alt="Image 008">
+      <img src="assets/images/screenshots/004.jpg" alt="Image 004">
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="assets/images/screenshots/009.png" alt="Image 009">
+      <img src="assets/images/screenshots/005.jpg" alt="Image 005">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/010.png" alt="Image 010">
+      <img src="assets/images/screenshots/006.jpg" alt="Image 006">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/011.png" alt="Image 011">
+      <img src="assets/images/screenshots/007.jpg" alt="Image 007">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/012.png" alt="Image 012">
+      <img src="assets/images/screenshots/008.jpg" alt="Image 008">
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="assets/images/screenshots/013.png" alt="Image 013">
+      <img src="assets/images/screenshots/009.jpg" alt="Image 009">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/014.png" alt="Image 014">
+      <img src="assets/images/screenshots/010.jpg" alt="Image 010">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/015.png" alt="Image 015">
+      <img src="assets/images/screenshots/011.jpg" alt="Image 011">
     </td>
     <td align="center">
-      <img src="assets/images/screenshots/016.png" alt="Image 016">
+      <img src="assets/images/screenshots/012.jpg" alt="Image 012">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/images/screenshots/013.jpg" alt="Image 013">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/014.jpg" alt="Image 014">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/015.jpg" alt="Image 015">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/016.jpg" alt="Image 016">
     </td>
   </tr>
 </table>
