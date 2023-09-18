@@ -1,5 +1,71 @@
 # Kooha Assessment Test - Flutter Mobile Application Developer
 
+## Before you begin
+    - To generate App Icon, run:
+        1. `flutter pub get` `flutter pub run flutter_launcher_icons -f pubspec.yaml`
+        2. `flutter pub get` `flutter pub run flutter_launcher_icons`
+
+## Some screenshots
+<table>
+  <tr>
+    <td align="center">
+      <img src="assets/images/screenshots/001.png" alt="Image 001">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/002.png" alt="Image 002">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/003.png" alt="Image 003">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/004.png" alt="Image 004">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/images/screenshots/005.png" alt="Image 005">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/006.png" alt="Image 006">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/007.png" alt="Image 007">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/008.png" alt="Image 008">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/images/screenshots/009.png" alt="Image 009">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/010.png" alt="Image 010">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/011.png" alt="Image 011">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/012.png" alt="Image 012">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/images/screenshots/013.png" alt="Image 013">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/014.png" alt="Image 014">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/015.png" alt="Image 015">
+    </td>
+    <td align="center">
+      <img src="assets/images/screenshots/016.png" alt="Image 016">
+    </td>
+  </tr>
+</table>
+
+
 ## Introduction
 
 Welcome to my assessment test submission for the position of Flutter Mobile Application Developer at Kooha. In this README, I'd like to address an issue I encountered with the login endpoint and explain my approach to handling it.
