@@ -65,6 +65,8 @@
   </tr>
 </table>
 
+## Get the app
+Click [here](https://drive.google.com/file/d/1a6pf0vmWv6LsjH-URw3sy5im17zhCzZh/view?usp=drive_link)
 
 ## Introduction
 
