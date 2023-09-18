@@ -29,7 +29,7 @@ class TransactionReported extends StatelessWidget {
                     ),
                     TextOf("Transaction\nSuccessfully Reported", 24,
                         AppColors.secondaryColor, FontWeight.w700),
-                    YMargin(10),
+                    const YMargin(10),
                     TextOf(
                         " Your report has been received and\nis under careful review.",
                         14,

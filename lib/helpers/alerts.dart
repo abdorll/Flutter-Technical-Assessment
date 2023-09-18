@@ -17,7 +17,7 @@ class Alerts {
             ? AppColors.red
             : alertType == AlertType.INFO
                 ? Colors.blue.shade300
-                :AppColors.green,
+                : AppColors.green,
         title: (_) {
           return Row(
             mainAxisSize: MainAxisSize.min,
@@ -43,36 +43,28 @@ class Alerts {
   }
 
   static loading() {
-    BotToast.showLoading();
-    // BotToast.showCustomLoading(toastBuilder: (action) {
-    //   return Center(
-    //     child: SizedBox.square(
-    //       dimension: 90,
-    //       child: Container(
-    //         decoration: BoxDecoration(
-    //             border: Border.all(color: white),
-    //             borderRadius: BorderRadius.circular(30),
-    //             color: grey.withOpacity(0.6)),
-    //         child: Column(
-    //           mainAxisSize: MainAxisSize.min,
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             const YMargin(5),
-    //             CircularProgressIndicator(
-    //               backgroundColor: white,
-    //               color: primaryColor,
-    //             ),
-    //             const YMargin(10),
-    //             TextOf('Redirecting...', 9, white, FontWeight.w400),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    // });
+    BotToast.showWidget(
+        toastBuilder: (_) => Align(
+              alignment: Alignment.center,
+              child: SizedBox.square(
+                dimension: 90,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                        backgroundColor: AppColors.primaryColor,
+                        strokeWidth: 6,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.grey.shade800)),
+                  ),
+                ),
+              ),
+            ));
   }
 
   static close() {
-    BotToast.closeAllLoading();
+    BotToast.cleanAll();
   }
 }

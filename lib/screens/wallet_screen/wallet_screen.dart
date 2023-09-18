@@ -27,6 +27,8 @@ class _WalletScreenState extends State<WalletScreen> {
   final WalletProvider walletProvider = Get.put(WalletProvider());
   final TransactionListProvider transactionListProvider =
       Get.put(TransactionListProvider());
+
+  BouncingScrollPhysics scrollPhysics = const BouncingScrollPhysics();
   @override
   void initState() {
     transactionListProvider.getTransactionsData();
@@ -43,90 +45,107 @@ class _WalletScreenState extends State<WalletScreen> {
         child: Obx(() {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 25),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          TextOf(
-                            "Wallet",
-                            24,
-                            AppColors.white,
-                            FontWeight.w700,
-                          ),
-                        ],
+            child: RefreshIndicator(
+              backgroundColor: AppColors.white,
+              color: AppColors.primaryColor,
+              onRefresh: () {
+                return reloader();
+              },
+              child: SingleChildScrollView(
+                physics: scrollPhysics,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15,
                       ),
-                      const YMargin(20),
-                      TextOf(
-                          "Balance", 14, AppColors.deepGrey, FontWeight.w700),
-                      const YMargin(10),
-                      walletProvider.userwallet.value == null
-                          ? TextOf(
-                              "₦ 0.00", 32, AppColors.white, FontWeight.w700)
-                          : TextOf(
-                              "₦ ${walletProvider.userwallet.value!.balance!.toDouble().toString()}",
-                              32,
-                              AppColors.white,
-                              FontWeight.w700),
-                      const YMargin(25),
-                      ElevatedButton(
-                          onPressed: () {},
-                          style: Theme.of(context)
-                              .elevatedButtonTheme
-                              .style!
-                              .copyWith(
-                                  fixedSize: MaterialStatePropertyAll<Size>(
-                                      Size(
-                                          MediaQuery.of(context).size.width *
-                                              0.45,
-                                          60))),
-                          child: TextOf(
-                              "Withraw", 16, AppColors.white, FontWeight.w700)),
-                      const YMargin(20),
-                    ],
-                  ),
-                ),
-                Divider(
-                  color: AppColors.grey,
-                ),
-                const YMargin(20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          TextOf("Transactions", 14, AppColors.deepGrey,
-                              FontWeight.w500),
-                          const XMargin(2),
-                          IconOf(Icons.arrow_downward_outlined, 15,
-                              AppColors.deepGrey)
-                        ],
-                      ),
-                      transactionListProvider.transactionList == []
-                          ? const SizedBox.shrink()
-                          : InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context,
-                                    WalletTransactionsPage
-                                        .walletTransactionsPage);
-                              },
-                              child: TextOf("See all", 16,
-                                  AppColors.secondaryColor, FontWeight.w700),
+                      child: SingleChildScrollView(
+                        physics: scrollPhysics,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                TextOf(
+                                  "Wallet",
+                                  24,
+                                  AppColors.white,
+                                  FontWeight.w700,
+                                ),
+                              ],
                             ),
-                    ],
-                  ),
-                ),
-                const YMargin(10),
-                Expanded(
-                    child: transactionListProvider.transactionList == []
+                            const YMargin(20),
+                            TextOf("Balance", 14, AppColors.deepGrey,
+                                FontWeight.w700),
+                            const YMargin(10),
+                            walletProvider.userwallet.value == null
+                                ? TextOf("₦ 0.00", 32, AppColors.white,
+                                    FontWeight.w700)
+                                : TextOf(
+                                    "₦ ${walletProvider.userwallet.value!.balance!.toDouble().toString()}",
+                                    32,
+                                    AppColors.white,
+                                    FontWeight.w700),
+                            const YMargin(25),
+                            ElevatedButton(
+                                onPressed: () {},
+                                style: Theme.of(context)
+                                    .elevatedButtonTheme
+                                    .style!
+                                    .copyWith(
+                                        fixedSize:
+                                            MaterialStatePropertyAll<Size>(Size(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.45,
+                                                60))),
+                                child: TextOf("Withraw", 16, AppColors.white,
+                                    FontWeight.w700)),
+                            const YMargin(20),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: AppColors.grey,
+                    ),
+                    const YMargin(20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              TextOf("Transactions", 14, AppColors.deepGrey,
+                                  FontWeight.w500),
+                              const XMargin(2),
+                              IconOf(Icons.arrow_downward_outlined, 15,
+                                  AppColors.deepGrey)
+                            ],
+                          ),
+                          transactionListProvider.transactionList == []
+                              ? const SizedBox.shrink()
+                              : InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context,
+                                        WalletTransactionsPage
+                                            .walletTransactionsPage);
+                                  },
+                                  child: TextOf(
+                                      "See all",
+                                      16,
+                                      AppColors.secondaryColor,
+                                      FontWeight.w700),
+                                ),
+                        ],
+                      ),
+                    ),
+                    const YMargin(10),
+                    transactionListProvider.transactionList.isEmpty
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -142,7 +161,8 @@ class _WalletScreenState extends State<WalletScreen> {
                         : Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: ListView.separated(
-                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
                                 separatorBuilder: (context, index) => Divider(
                                       color: AppColors.grey,
                                     ),
@@ -155,13 +175,20 @@ class _WalletScreenState extends State<WalletScreen> {
                                   return transactionInfo(context,
                                       transaction: transaction);
                                 }),
-                          ))
-              ],
+                          )
+                  ],
+                ),
+              ),
             ),
           );
         }),
       ),
     );
+  }
+
+  Future reloader() async {
+    transactionListProvider.getTransactionsData();
+    walletProvider.getwallet();
   }
 }
 
@@ -176,6 +203,7 @@ transactionInfo(BuildContext context, {required TransactionsData transaction}) {
       children: [
         InkWell(
           splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () {
             Navigator.pushNamed(
                 context, TransactionSummaryScreen.transactionSummaryScreen,
@@ -220,8 +248,11 @@ transactionInfo(BuildContext context, {required TransactionsData transaction}) {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextOf("${Constants.CURRENCY} ${transaction.amount!.toString()}", 14,
-                      AppColors.white, FontWeight.w700),
+                  TextOf(
+                      "${Constants.CURRENCY} ${transaction.amount!.toString()}",
+                      14,
+                      AppColors.white,
+                      FontWeight.w700),
                   const YMargin(5),
                   TextOf(
                       AppFunction.dateFormatter(

@@ -26,56 +26,62 @@ class _NavScreensState extends State<NavScreens> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: realNavsScreens.elementAt(currentIndex),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Divider(
-            thickness: 1,
-            color: AppColors.deepGrey,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            height: 57,
-            child: Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  navIcons(
-                      thisIndex: 0,
-                      imageName: ImageOf.homeIcon,
-                      labelName: "Home"),
-                  navIcons(
-                      thisIndex: 1,
-                      isWallet: true,
-                      imageName: ImageOf.homeIcon,
-                      labelName: "Wallet"),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style!
-                        .copyWith(
-                            fixedSize: MaterialStatePropertyAll<Size>(Size(
-                                MediaQuery.of(context).size.width * 0.1, 20))),
-                    child: IconOf(Icons.add, 15, AppColors.white),
-                  ),
-                  navIcons(
-                      thisIndex: 2,
-                      imageName: ImageOf.messagesIcon,
-                      labelName: "Inbox"),
-                  navIcons(
-                      thisIndex: 3,
-                      imageName: ImageOf.profile,
-                      labelName: "Profile"),
-                ],
+    return WillPopScope(
+      onWillPop: () async {
+        return showExitPopup(context);
+      },
+      child: Scaffold(
+        body: realNavsScreens.elementAt(currentIndex),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Divider(
+              thickness: 1,
+              color: AppColors.deepGrey,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              height: 57,
+              child: Center(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    navIcons(
+                        thisIndex: 0,
+                        imageName: ImageOf.homeIcon,
+                        labelName: "Home"),
+                    navIcons(
+                        thisIndex: 1,
+                        isWallet: true,
+                        imageName: ImageOf.homeIcon,
+                        labelName: "Wallet"),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: Theme.of(context)
+                          .elevatedButtonTheme
+                          .style!
+                          .copyWith(
+                              fixedSize: MaterialStatePropertyAll<Size>(Size(
+                                  MediaQuery.of(context).size.width * 0.1,
+                                  20))),
+                      child: IconOf(Icons.add, 15, AppColors.white),
+                    ),
+                    navIcons(
+                        thisIndex: 2,
+                        imageName: ImageOf.messagesIcon,
+                        labelName: "Inbox"),
+                    navIcons(
+                        thisIndex: 3,
+                        imageName: ImageOf.profile,
+                        labelName: "Profile"),
+                  ],
+                ),
               ),
             ),
-          ),
-          const YMargin(5)
-        ],
+            const YMargin(5)
+          ],
+        ),
       ),
     );
   }
@@ -123,4 +129,73 @@ class _NavScreensState extends State<NavScreens> {
       ),
     );
   }
+}
+
+Future<bool> showExitPopup(BuildContext context) async {
+  return await showDialog(
+          //show confirm dialogue
+          //the return value will be from "Yes" or "No" options
+          context: context,
+          builder: (context) => Dialog(
+                insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+                shadowColor: AppColors.white,
+                elevation: 1,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: AppColors.grey,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconOf(Icons.error_outline_rounded, 100, AppColors.red),
+                      const YMargin(20),
+                      TextOf("Hey!", 35, AppColors.white, FontWeight.w500),
+                      const YMargin(20),
+                      TextOf("Are you sure you want to exit?", 15,
+                          AppColors.white, FontWeight.w500),
+                      const YMargin(20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: ElevatedButton(
+                                style: Theme.of(context)
+                                    .elevatedButtonTheme
+                                    .style!
+                                    .copyWith(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll<Color>(
+                                                AppColors.primaryColor
+                                                    .withOpacity(0.3))),
+                                onPressed: () {
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: TextOf("Yes", 16, AppColors.white,
+                                    FontWeight.w700)),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: ElevatedButton(
+                                style: Theme.of(context)
+                                    .elevatedButtonTheme
+                                    .style!
+                                    .copyWith(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll<Color>(
+                                                AppColors.primaryColor)),
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                },
+                                child: TextOf("No", 16, AppColors.white,
+                                    FontWeight.w700)),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )) ??
+      false; //if showDialouge had returned null, then return false
 }

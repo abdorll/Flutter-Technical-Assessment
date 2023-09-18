@@ -1,6 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kooha/model/transaction_data.dart';
 import 'package:kooha/providers/transactions_provider.dart';
 import 'package:kooha/screens/wallet_screen/wallet_screen.dart';
@@ -148,7 +149,7 @@ class _WalletTransactionsPageState extends State<WalletTransactionsPage> {
           itemCount: data.length,
           itemBuilder: (context, index) {
             TransactionsData transaction = data[index];
-            return transactionInfo(context,transaction: transaction);
+            return transactionInfo(context, transaction: transaction);
           }),
     );
   }
