@@ -10,8 +10,7 @@ import 'package:kooha/utils/endpoints.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:kooha/utils/functions.dart';
+import 'package:hive/hive.dart'; 
 
 Future setFrechLogin({bool newVal = false}) async {
   var user = await Hive.openBox(Constants.USER_BOX);

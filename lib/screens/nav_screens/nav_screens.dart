@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kooha/screens/other_nav_screens/other_nav_screens.dart';
 import 'package:kooha/screens/wallet_screen/wallet_screen.dart';
 import 'package:kooha/widget/iconss.dart';
@@ -56,17 +57,25 @@ class _NavScreensState extends State<NavScreens> {
                         isWallet: true,
                         imageName: ImageOf.homeIcon,
                         labelName: "Wallet"),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: Theme.of(context)
-                          .elevatedButtonTheme
-                          .style!
-                          .copyWith(
-                              fixedSize: MaterialStatePropertyAll<Size>(Size(
-                                  MediaQuery.of(context).size.width * 0.1,
-                                  20))),
-                      child: IconOf(Icons.add, 15, AppColors.white),
-                    ),
+                    Obx(() {
+                      return ElevatedButton(
+                        onPressed: () {
+                          transactionListProvider.transactionList.isEmpty
+                              ? reloader()
+                              : () {};
+                        },
+                        style: Theme.of(context)
+                            .elevatedButtonTheme
+                            .style!
+                            .copyWith(
+                                fixedSize: MaterialStatePropertyAll<Size>(Size(
+                                    MediaQuery.of(context).size.width * 0.1,
+                                    20))),
+                        child: transactionListProvider.transactionList.isEmpty
+                            ? IconOf(Icons.refresh, 20, AppColors.white)
+                            : IconOf(Icons.add, 15, AppColors.white),
+                      );
+                    }),
                     navIcons(
                         thisIndex: 2,
                         imageName: ImageOf.messagesIcon,

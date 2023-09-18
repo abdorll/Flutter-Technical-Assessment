@@ -12,7 +12,8 @@ import 'package:kooha/utils/images.dart';
 import 'package:kooha/widget/iconss.dart';
 import 'package:kooha/widget/spacing.dart';
 import 'package:kooha/widget/texts.dart';
-
+  final TransactionListProvider transactionListProvider =
+      Get.put(TransactionListProvider());
 final WalletProvider walletProvider = Get.put(WalletProvider());
 
 class WalletScreen extends StatefulWidget {
@@ -25,8 +26,7 @@ class WalletScreen extends StatefulWidget {
 
 class _WalletScreenState extends State<WalletScreen> {
   final WalletProvider walletProvider = Get.put(WalletProvider());
-  final TransactionListProvider transactionListProvider =
-      Get.put(TransactionListProvider());
+
 
   BouncingScrollPhysics scrollPhysics = const BouncingScrollPhysics();
   @override
@@ -81,7 +81,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                 ? TextOf("₦ 0.00", 32, AppColors.white,
                                     FontWeight.w700)
                                 : TextOf(
-                                    "₦ ${walletProvider.userwallet.value!.balance!.toDouble().toString()}",
+                                    "₦ ${walletProvider.userwallet.value!.balance!.toDouble().toStringAsFixed(2).toString()}",
                                     32,
                                     AppColors.white,
                                     FontWeight.w700),
@@ -124,7 +124,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                   AppColors.deepGrey)
                             ],
                           ),
-                          transactionListProvider.transactionList == []
+                          transactionListProvider.transactionList.isEmpty
                               ? const SizedBox.shrink()
                               : InkWell(
                                   splashColor: Colors.transparent,
@@ -186,10 +186,10 @@ class _WalletScreenState extends State<WalletScreen> {
     );
   }
 
-  Future reloader() async {
-    transactionListProvider.getTransactionsData();
-    walletProvider.getwallet();
-  }
+
+
+
+  
 }
 
 transactionInfo(BuildContext context, {required TransactionsData transaction}) {
@@ -269,3 +269,9 @@ transactionInfo(BuildContext context, {required TransactionsData transaction}) {
     ),
   );
 }
+
+
+Future reloader() async {
+    transactionListProvider.getTransactionsData();
+    walletProvider.getwallet();
+  }
