@@ -14,6 +14,7 @@ class ImageOf {
   static String homeIcon = image('home');
   static String messagesIcon = image('messages');
   static String profile = image('profile');
+  static String transactionReported = image('transaction_reported');
   static String wallet = image('wallet');
   static String copy = image('copy');
   static String close = image('close');

@@ -2,13 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kooha/helpers/alerts.dart';
 import 'package:kooha/model/transaction_data.dart';
+import 'package:kooha/screens/wallet_screen/report_transaction.dart';
 import 'package:kooha/utils/color.dart';
 import 'package:kooha/utils/constants.dart';
 import 'package:kooha/utils/functions.dart';
 import 'package:kooha/utils/images.dart';
 import 'package:kooha/widget/back_button.dart';
+import 'package:kooha/widget/custom_elevated_button.dart';
 import 'package:kooha/widget/iconss.dart';
 import 'package:kooha/widget/spacing.dart';
 import 'package:kooha/widget/texts.dart';
@@ -266,7 +269,7 @@ loadBottomSheet(BuildContext context) {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom * 1),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: AppColors.scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(20)),
@@ -308,13 +311,19 @@ loadBottomSheet(BuildContext context) {
                         FontWeight.w700),
                     const YMargin(45),
                     TextFormField(
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(8,
-                            maxLengthEnforcement:
-                                MaxLengthEnforcement.enforced), // for mobile
-                      ],
+                      maxLength: 255,
+                      maxLines: 5,
+                      style: GoogleFonts.mulish(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.white),
+                      maxLengthEnforcement: MaxLengthEnforcement.enforced,
                       decoration: InputDecoration(
-                        hintText: "Deskripsi",
+                        hintText: "Write something...",
+                        hintStyle: GoogleFonts.mulish(
+                            fontSize: 12, fontWeight: FontWeight.w500),
+                        filled: true,
+                        fillColor: AppColors.fadedBlack,
                         counterStyle:
                             TextStyle(fontSize: 10, color: AppColors.white),
                         enabledBorder: OutlineInputBorder(
@@ -330,9 +339,16 @@ loadBottomSheet(BuildContext context) {
                             borderSide:
                                 BorderSide(width: 1, color: AppColors.white)),
                       ),
-                      maxLength: 8,
                     ),
-                    YMargin(20)
+                    const YMargin(40),
+                    CustomElevatedButton(
+                        enabled: true,
+                        text: "Report",
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, TransactionReported.transactionReported);
+                        }),
+                    const YMargin(40)
                   ],
                 ),
               ),
