@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class AppFunction {
   static void prints({required Object message}) {
     if (kDebugMode) {
-      print(message);
+      //print(message);
     }
   }
 

@@ -82,8 +82,7 @@ class LoginProvider extends GetxController {
   Future login(BuildContext context) async {
     setAppState = ApplicationState.LOADING;
     Box user = await Hive.openBox(Constants.USER_BOX);
-    AppFunction.prints(
-        message: "++++++++++++++++=${email.value} and ${password.value}");
+
     Alerts.loading();
     _apiBasics
         .performRequest(
