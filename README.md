@@ -2,8 +2,8 @@
 
 ## Before you begin (if you'd run the code)
     To generate App Icon, run:
-        1. flutter pub get flutter pub run flutter_launcher_icons -f pubspec.yaml
-        2. flutter pub get flutter pub run flutter_launcher_icons
+        1. flutter pub get || flutter pub run flutter_launcher_icons -f pubspec.yaml
+        2. flutter pub get || flutter pub run flutter_launcher_icons
 
 ## App screenshots
 <table>
